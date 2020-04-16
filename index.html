@@ -1,0 +1,448 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CUBE - Towards an Optimal Scaling of Cosmological N -body Simulations</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+<meta name="description" content="Towards an Optimal Scaling of Cosmological N -body Simulations">
+<style>
+body, td, th {
+  font-family: 'Open Sans', sans-serif;
+}
+h2 {
+  margin-top: 3ex;
+}
+.color-primary-0 { color: #2E4272 }  /* Main Primary color */
+.color-primary-1 { color: #858890 }
+.color-primary-2 { color: #556281 }
+.color-primary-3 { color: #0E2863 }
+.color-primary-4 { color: #021B54 }
+
+.nd-pageheader {
+  padding: 2rem 15px;
+  margin-bottom: 1.5rem;
+  color: #e4f1fe;
+  text-align: center;
+  background-color: #0E2863;
+}
+
+.nd-pageheader a {
+  color: #e4f1fe;
+}
+
+.nd-pageheader .container {
+  position: relative
+}
+
+.nd-pageheader h1 {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #fff
+}
+
+.nd-pageheader address {
+  font-weight: 300;
+}
+
+.nd-pageheader p {
+  margin-bottom: 0;
+  font-size: 1.25rem;
+  font-weight: 300
+}
+
+.citation {
+  margin-top: 10px;
+  clear: both;
+}
+.citation:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.citation img {
+  float: left;
+  margin: 0 10px 10px 0;
+  width: 200px;
+}
+
+
+.newsmedia {
+  float: center;
+  margin: 20px 20px 10px 10px;
+  height: 140px;
+  border: none;
+}
+
+
+figcaption {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.highlight {
+  padding: 1.5rem;
+  margin-right: 0;
+  margin-left: 0;
+  background: gainsboro;
+}
+
+.smallfig {
+  width: 80%;
+}
+
+.modal .big-modal {
+  width:auto;
+  max-width:90%;
+  max-height:80%;
+}
+
+.img-wrapper {
+  text-align: center;
+}
+
+.big-modal img {
+  max-height: 60vh;
+}
+
+.img-scroller {
+  overflow-x: scroll;
+}
+
+.img-scroller .img-fluid {
+  max-width: initial;
+}
+
+@media (min-width: 576px) {
+  .nd-pageheader {
+    padding-top:4rem;
+    padding-bottom: 4rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .smallfig {
+    width: 60%;
+  }
+  .nd-pageheader h1 {
+    font-size:4rem
+  }
+
+  .nd-pageheader p {
+    font-size: 1.5rem
+  }
+  .twocol-md {
+     column-count: 2;
+  }
+}
+
+@media (min-width: 992px) {
+  .smallfig {
+    width: 45%;
+  }
+  #fig-arch-compare {
+    width: 49%;
+  }
+}
+.best { font: 12.5px Helvetica; }
+.best { border-collapse: collapse; border-spacing: 0; }
+.best td { position: relative; }
+.best td img { margin-top: 15px; }
+.best td .unit { font-size: 10px; position: absolute; top: 0; left: 3px; white-space: nowrap; width: 100%; text-overflow: clip; overflow: hidden; }
+.best td .score { display: none; position: absolute; top: 0; right: 3px; white-sapce: nowrap; }
+.best td:nth-child(1) {
+  min-width: 28px;
+  border-right: 3px solid transparent;
+}
+.best td .netname {
+	transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	text-align: center;
+	font: 12px helvetica;
+	white-space: nowrap;
+	padding: 4px;
+}
+.best th, .best td {
+  padding-left: 3px;
+}
+.best img {
+  width: 100%;
+}
+.best .concept {
+	color: black;
+	font: 14px helvetica;
+  padding-bottom: 2px;
+  text-transform: capitalize;
+  text-align: left;
+  margin-right: 1px;
+}
+
+@media (min-width: 576px) {
+  .best td .unit { font-size: inherit; }
+  .best td .netname { font-size: 14px; }
+  .best .concept { font-size: 20px; }
+}
+
+@media (min-width: 768px) {
+  .best td .netname { font-size: 17px; }
+}
+
+@media (min-width: 1200px) {
+  .best td .score { display: block; }
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 80%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+/* Trick for moving the media-control-panel down on chrome */
+video::-webkit-media-controls-panel {
+ margin-top: 30px;
+ /* Do not auto-hide controls */
+ opacity: 1 !important;
+ display: flex !important;
+}
+video[controls] {
+ margin-bottom: 30px;
+}
+</style>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-91912421-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-91912421-3');
+</script>
+
+
+</head>
+<body class="nd-docs">
+<div class="nd-pageheader">
+ <div class="container">
+ <p class="lead">
+ <nobr>CUBE -</nobr>
+ <nobr>Towards an Optimal Scaling of Cosmological N -body Simulations</nobr> 
+<address>
+  <nobr>Shenggan Cheng*,</nobr>
+  <nobr>Hao-ran Yu*,</nobr>
+  <nobr>Dereck Inman,</nobr>
+  <nobr>Qiucheng Liao,</nobr>
+  <nobr>Qiaoya Wu,</nobr>
+  <nobr>James Lin</nobr>
+ <br>
+ <nobr>Shanghai Jiao Tong University & </nobr>
+ <nobr>Xiamen University & </nobr>
+ <nobr>New York University</nobr>
+</address>
+ </p>
+ </div>
+</div><!-- end nd-pageheader -->
+
+<div class="container">
+
+
+<!-- <div class="row">
+<div class="col"> -->
+
+<p class="citation">
+  <a href="https://arxiv.org/abs/2003.03931"><img src="img/paper-preview.png" data-nothumb></a>
+  <b>Abstract: </b>
+  N-body simulations are essential tools in physical cosmology to understand the large-scale structure (LSS) formation of the universe. Large-scale simulations with high resolution are important for exploring the substructure of universe and for determining fundamental physical parameters like neutrino mass. However, traditional particle-mesh (PM) based algorithms use considerable amounts of memory, which limits the scalability of simulations. Therefore, we designed a two-level PM algorithm CUBE towards optimal performance in memory consumption reduction. By using the ﬁxed-point compression technique, CUBE reduces the memory consumption per N-body particle to only 6 bytes, an order of magnitude lower than the traditional PMbased algorithms. We scaled CUBE to 512 nodes (20,480 cores) on an Intel Cascade Lake based supercomputer with &asymp;95% weakscaling efﬁciency. This scaling test was performed in Cosmo-π – a cosmological LSS simulation using &asymp;4.4 trillion particles, tracing the evolution of the universe over &asymp;13.7 billion years. To our best knowledge, Cosmo-π is the largest completed cosmological N-body simulation. We believe CUBE has a huge potential to scale on exascale supercomputers for larger simulations.
+</p>
+
+<!-- </div>
+</div> row -->
+
+<h2>Method</h2>
+
+<p>
+  CUBE solves the gravitational force using the PMPM algorithm, with optional extended-PP force modules for increased accuracy. The traditional PM-based algorithm is suboptimal in parallel computing as it requires a full resolution parallel FFT. While PMPM algorithm solves this problem by splitting the gravitational force into a short-range force and a long-range force. Long-range force requires a global FFT on global coarse-mesh and short-range force requires a local FFT on fine-mesh.
+</p>
+
+<div class="text-center mb-3">
+  <figure class="d-inline-block smallfig" id="fig-arch-compare">
+  <a data-toggle="lightbox" href="img/cube.png" data-footer="
+  Schematic showing the spatial decomposition in CUBE omitting the third symmetric dimension. In this example, there are two images per dimension and two tiles per image per dimension. The orange boxes show the overlapped extended tile egions. One physical region is indicated in green.
+  " data-title="Overview of CUBE"><img class="img-fluid" src="img/cube.png" width=480 title="Overview of CUBE"></a>
+  <figcaption class="text-left d-block">
+    The spatial decomposition in CUBE omitting the third symmetric dimension. In this example, there are two images per dimension and two tiles per image per dimension. The orange boxes show the overlapped extended tile egions. One physical region is indicated in green.
+  </figcaption>
+  </figure>
+</div>
+
+<p>
+  The PMPM algorithm is intrinsically memory efficient, and the memory consumption is thus dominated by the phase-space coordinates of particles. CUBE is information-optimized and further reduce this memory footprint by using fixed-point formats instead of float-point formats. Instead of using a 4/8-byte float/double storing each particle’s phase information, CUBE use 1/2-byte fixed-point to represente particle’s phase information. Due to using fixed-point compression, CUBE has significantly smaller bpp than any other cosmological N-body simulation codes and only <strong>12.8</strong> <em>bytes per particle</em> (bpp). For example, TianNu Simulates 2.97 trillion particles on Tianhe-2 which has 186 bpp, which is 14.5 times larger than CUBE’s bpp.
+</p>
+
+<h2>Simulation</h2>
+<p>
+We use 4,096 MPI processes on 512 nodes (≈80% of the full system of π 2.0) to evolve 16384<sup>3</sup> ( &asymp; 4.39 × 10<sup>12</sup> ) cold dark matter particles in a (3.2 Gpc/<em>h</em>)<sup>3</sup> cosmological volume. We use the Zel’dovich Approximation to determine the initial positions and velocities of particles at redshift <em>z = 99</em> and then use CUBE to evolve the particles to <em>z = 0</em>. The simulation models a &Lambda;CDM universe with Hubble parameter H<sub>0</sub> = 100<em>h</em> km s<sup>-1</sup> Mpc<sup>-1</sup>, CDM density &Omega;<sub>c</sub> <em>h</em><sup>2</sup> = 0.1109, baryon density &Omega;<sub>b</sub> <em>h</em><sup>2</sup> = 0.0228 and initial conditions characterized by &sigma;<sub>8</sub> = 0.80 and n<sub>s</sub> = 0.96. For fixed-point compression, we use the 1-byte fixed-point format to store the particle phase space.
+
+<div class="text-center mb-3">
+  <figure class="d-inline-block smallfig" id="fig-arch-compare">
+  <a data-toggle="lightbox" href="img/pi2_sim.png" data-footer="
+  Two-dimensional visualization of the CDM structures in Cosmo-π at redshift z=0. A slice of volume 3200 × 3200 × 20 (Mpc/h)^3 is shown, while sub-panels show zoomed-in structures. The high/low column densities are rendered by black/white, while the most zoomed-in panel shows the direct projection of CDM N-body particles.
+  " data-title="Two-dimensional visualization of the CDM structures"><img class="img-fluid" src="img/pi2_sim.png" width=320 title="Two-dimensional visualization of the CDM structures"></a>
+  <figcaption class="text-left d-block">
+    Two-dimensional visualization of the CDM structures in Cosmo-π at redshift <em>z = 0</em>. A slice of volume <em>3200 × 3200 × 20 (Mpc/h)<sup>3</sup></em> is shown, while sub-panels show zoomed-in structures. The high/low column densities are rendered by black/white, while the most zoomed-in panel shows the direct projection of CDM N-body particles.
+  </figcaption>
+  </figure>
+  
+  <figure class="d-inline-block smallfig">
+  <a data-toggle="lightbox" href="img/power.png" data-footer="
+  Statistical validation of Cosmo-π . We show the dimensionless power spectra &Delta;^2(k) at redshifts z = 0, 0.2, 0.5, 1, 3, 99 as well as their linear and nonlinear predictions. The range of k is chosen to show the transition between linear and nonlinear scales.
+  " data-title="Statistical validation of Cosmo-π"><img class="img-fluid" src="img/power.png" title="Statistical validation of Cosmo-π"></a>
+  <figcaption class="text-left d-block">
+    Statistical validation of Cosmo-π . We show the dimensionless power spectra &Delta;<sup>2</sup> (k) at redshifts <em>z = 0, 0.2, 0.5, 1, 3, 99</em> as well as their linear and nonlinear predictions. The range of k is chosen to show the transition between linear and nonlinear scales.
+  </figcaption>
+  </figure>
+</div>
+
+
+<h2>Performance</h2>
+
+<p>
+  To study the weak-scaling of CUBE, we allow each process to evolve a <em>200 Mpc/h</em> volume using 1024<sup>3</sup> fine cells and gradually scale from 40 cores to 20,480 cores. Figure below shows CUBE’s weak-scaling result both with and without the PP force (PM-PM-PP and PM-PM in the legend). We see an almost perfect linear speed achieving 95% parallel efﬁciency in both cases. For comparison, the TianNu simulation had 72% weak-scaling efﬁciency; although we note that this scaling test was done at redshift <em>z = 5</em> where nonlinear structure substantially increases iterations of the PP force kernel.
+</p>
+
+<div class="text-center mb-3">
+  <figure class="d-inline-block smallfig" id="fig-arch-compare">
+  <a data-toggle="lightbox" href="img/weak-scaling.png" data-footer="
+  Weak-scaling from 40 to 20,480 cores. We show the parallel efﬁciency against core count for PM-PM-PP and PM-PM along with the ideal efﬁciency.
+  " data-title="Weak-scaling Performance"><img class="img-fluid" src="img/weak-scaling.png" title="Weak-scaling Performance"></a>
+  <figcaption class="text-left d-block">
+    Weak-scaling from 40 to 20,480 cores. We show the parallel efﬁciency against core count for PM-PM-PP and PM-PM along with the ideal efﬁciency.
+  </figcaption>
+  </figure>
+</div>
+
+
+<h2>Citation</h2>
+
+<p>Bibilographic information for this work:</p>
+
+<p>S. Cheng*, HR. Yu*, D. inman, Q. Liao, Q. Wu and J. Lin.
+"CUBE -- Towards an Optimal Scaling of Cosmological N-body Simulations."
+International Symposium on Cluster, Cloud and Internet Computing (<strong>CCGRID, SCALE</strong>), 2020.
+[<a href="ccgrid2020.pdf">PDF</a>]
+
+<p>(*first two authors contributed equally.)</p>
+
+<pre class="highlight">
+@article{cube2020,
+  title={CUBE -- Towards an Optimal Scaling of Cosmological N-body Simulations},
+  author={Cheng, Shenggan and Yu, Hao-Ran and Inman, Derek and Liao, Qiucheng and Wu, Qiaoya and Lin, James},
+  journal={arXiv preprint arXiv:2003.03931},
+  year={2020}
+}
+</pre>
+
+<p><strong>Acknowledgement</strong>: This work was partly supported by the National Key Research and Development Program of China 2016YFB0201800 and National Science Foundation of China No.11903021. And thank HPC Center of Shanghai Jiao Tong University for providing computing resource and excellent technical support.</p>
+
+
+<h2>Media</h2>
+
+<p>
+<a href="https://news.sjtu.edu.cn/jdyw/20200313/121209.html">
+Shanghai Jiao Tong University π 2.0 achieves a new breakthrough in Cosmological N-body Simulation. </a> Shanghai Jiao Tong University Network Information Center, Department of Astronomy and Xiamen University Astronomy Department and other units, relying on Shanghai Jiao Tong University supercomputing platform (π 2.0 cluster), successfully completed the 4.4 trillion particle N-body simulation -- <strong>Cosmo-π</strong> (using 512 nodes, 20480 cores), tracked the evolution of the universe since 13.7 billion years, and broke the previous TianNu Simulation world record of 3 trillion particles (using 13824 nodes, 331776 cores) Has become the world's largest astronomical N-body simulation with the largest number of particles.</p>
+
+<div class="row">
+  <div class="col text-center">
+  <p>
+  <a href="https://news.sjtu.edu.cn/jdyw/20200313/121209.html" class="d-inline-block p-3"><img height="50" src="img/jdyw.svg" data-nothumb></a>
+  <a href="https://www.edu.cn/rd/gao_xiao_cheng_guo/cheng_guo_zhan_shi/202003/t20200313_1716466.shtml" class="d-inline-block p-3"><img height="70" src="img/edu.png" data-nothumb></a>
+  <a href="https://tech.sina.com.cn/d/i/2020-03-17/doc-iimxyqwa1160018.shtml" class="d-inline-block p-3"><img height="50" src="img/sina.png" data-nothumb></a>
+  <a href="https://www.qbitai.com/2020/03/12414.html" class="d-inline-block p-3"><img height="50" src="img/lzw.png" data-nothumb></a>
+  </div>
+</div>
+
+</div>
+</div> <!-- row -->
+
+</div> <!-- container -->
+
+<div class="modal" id="lightbox">
+  <div class="modal-dialog big-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close"
+             data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="img-wrapper img-scroller">
+          <img class="fullsize img-fluid">
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+$('img:not([data-nothumb])[src]').wrap(function() {
+  var result = $('<a data-toggle="lightbox">')
+  result.attr('href', $(this).attr('src'));
+  var caption = $(this).closest('figure').find('figcaption').text();
+  if (!caption && $(this).closest('.citation').length) {
+    caption = $(this).closest('.citation').text();
+  }
+  if (caption) {
+    result.attr('data-footer', caption);
+  }
+  var title = $(this).attr('title');
+  if (!title) {
+    title = $(this).closest('td').find('.unit,.score').map(function() {
+      return $(this).text(); }).toArray().join('; ');
+  }
+  if (title) {
+    result.attr('data-title', title);
+  }
+  return result;
+});
+$(document).on('click', '[data-toggle=lightbox]', function(event) {
+    $('#lightbox .img-wrapper').toggleClass('img-scroller',
+       !!$(this).find('img').data('scroller'));
+    $('#lightbox img').attr('src', $(this).attr('href'));
+    $('#lightbox .modal-title').text($(this).data('title') || '');
+    $('#lightbox .modal-footer').text($(this).data('footer') || '');
+    event.preventDefault();
+    $('#lightbox').modal();
+    $('#lightbox img').closest('div').scrollLeft(0);
+});
+$(document).on('keydown', function(event) {
+    $('#lightbox').modal('hide');
+});
+$('video').click(function(){this.paused?this.play():this.pause();});
+</script>
+</body>
+</html>
